@@ -1,0 +1,11 @@
+#! /usr/bin/bash
+
+export MYSQL_PWD="password"
+
+if [ "$1" = "show" ]; then
+    echo "SHOWING DATABASES"
+    mysql -h 0.0.0.0 -u root -p$MYSQL_PWD -e "SHOW DATABASES;"
+else
+    mysql -h 0.0.0.0 -u root -p$MYSQL_PWD -D testing
+fi
+ 

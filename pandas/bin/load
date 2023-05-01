@@ -1,0 +1,12 @@
+#! /usr/bin/bash
+
+CYAN='\033[1;36m'
+NO_COLOR='\033[0m'
+LABEL="db-load"
+printf "${CYAN}== ${LABEL}${NO_COLOR}\n"
+
+script_directory=$(readlink -f "$0")
+bin_directory=$(dirname "$script_directory")
+SCHEMA_PATH=$bin_directory/schema/schema.sql
+
+mysql -h 0.0.0.0 -u root -p$MYSQL_PWD -D testing < $SCHEMA_PATH

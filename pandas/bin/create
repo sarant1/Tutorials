@@ -1,0 +1,4 @@
+#! /usr/bin/bash
+
+export MYSQL_PWD="password"
+mysql -h 0.0.0.0 -u root -p$MYSQL_PWD -e "CREATE DATABASE testing;"
