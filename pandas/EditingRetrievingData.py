@@ -73,6 +73,3 @@ df_3 = df_3.combine_first(df_4)
 
 print("df_3.combine_first(df_4): ")
 print(df_3, "\n")
-
-
-
