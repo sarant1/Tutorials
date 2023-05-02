@@ -41,17 +41,42 @@ def get_db_connection():
                            user='root',
                            password='password',
                            database='testing',
-                           port=3306,
-                           cursorclass=pymysql.cursors.DictCursor 
+                           port=3306
+                           #cursorclass=pymysql.cursors.DictCursor 
                            )
 try: 
     connection = get_db_connection()
-    with connection:
-        with connection.cursor() as cursor:
-            cursor.execute("SHOW DATABASES;")
-            insertData(cursor)
-            connection.commit()
+    cursor = connection.cursor()
+    cursor.execute("SHOW DATABASES;")
+    #insertData(cursor)
+    stud_df = pd.read_sql('SELECT * FROM student', con=connection)
+    print(stud_df)
+    connection.commit()
+    connection.close()
     #stud_df = pd.read_sql('SELECT * FROM student', con=cursor)
 except Exception as e:
     print("\nError connecting to database")
     print(e)
+
+
+# try:
+#     connection = get_db_connection()
+#     cursor = connection.cursor()
+#     insert_stmt = "INSERT INTO student (name, age, grade) VALUES ('Samwel Arnat', '23', '99.9')"
+#     # cursor.execute(insert_stmt)
+#     connection.commit()
+#     stud_df = pd.read_sql('SELECT * FROM student', con=connection)
+#     print("\nDID I insert?")
+#     print(stud_df)
+#     connection.close()
+# except Exception as e:
+#     print("\nError connecting to database")
+#     print(e)
+
+
+
+# Print a specfic column
+cs_df_st = pd.read_csv('csv/ComputerSales.csv', usecols=["State"])
+print("\n")
+print(cs_df_st)
+
