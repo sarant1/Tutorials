@@ -49,10 +49,32 @@ print(df_2.subtract(col, axis=0))
 
 # Transform will execute a function on a dataframe
 
-df_5 = pd.DataFrame({'A': range(3), 'B': range(1, 4)})
+df_5 = pd.DataFrame({'A': range(4), 'B': range(1, 5)})
+print("\ndf_5 before transform: ")
+print(df_5)
 
 print("\ndf_5 after transform: ")
 print(df_5.transform([lambda x: x**2, lambda x: x**3]))
 
 print("\nTransform with dictionary:")
 print(df_5.transform({'A': lambda x: x**2, 'B': lambda x: x**3}))
+
+print("\nUsing .applymap")
+print(df_5.applymap(lambda x: x**2))
+
+print("\nGetting unique values from df_2")
+print(df_2['two'].unique())
+# Total number of uniqe values
+print(df_2['two'].nunique())
+# Number of times a value showed up in a column
+print("\ndf_2 value counts for column two")
+print(df_2['two'].value_counts())
+
+print("\nColumn names")
+print(df_2.columns)
+
+print("\nIndex names")
+print(df_2.index)
+
+print("\nis Null?")
+print(df_2.isnull())
