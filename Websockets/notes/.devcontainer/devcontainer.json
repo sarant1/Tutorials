@@ -61,5 +61,6 @@
     
     "remoteUser": "sudosam",
   
-     "postAttachCommand": "./.devcontainer/postcreate.sh"
+    "postAttachCommand": "npm i && npm i ./frontend && .devcontainer/postcreate.sh"
+    s
   }
