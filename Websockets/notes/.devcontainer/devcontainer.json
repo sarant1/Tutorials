@@ -6,22 +6,18 @@
       "ghcr.io/devcontainers/features/docker-in-docker:2": {}
     },
   
-    // "forwardPorts": [3000, 4567, 2000],
+    "forwardPorts": [3000, 5000],
   
-    // "portsAttributes": {
-    //   "3000": {
-    //     "label": "Cruddur Frontend",
-    //     "onAutoForward": "notify"
-    //   },
-    //   "4567": {
-    //     "label": "Cruddur Backend",
-    //     "onAutoForward": "notify"
-    //   },
-    //   "2000": {
-    //     "label": "AWS X-Ray Daemon",
-    //     "onAutoForward": "notify"
-    //   }
-    // },
+    "portsAttributes": {
+      "3000": {
+        "label": "Notes Frontend",
+        "onAutoForward": "notify"
+      },
+      "5000": {
+        "label": "Notes Backend",
+        "onAutoForward": "notify"
+      },
+    },
   
     "customizations": {      
       "vscode": {        
@@ -62,5 +58,5 @@
     "remoteUser": "sudosam",
   
     "postAttachCommand": "npm i && npm i ./frontend && .devcontainer/postcreate.sh"
-    s
+    
   }

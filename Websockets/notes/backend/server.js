@@ -1,25 +1,25 @@
 const express = require('express');
 const { chats } = require('./data/data.js');
 const dotenv = require('dotenv');
+const connectDB = require('./config/db.js');
+const colors = require('colors');
+const userRoutes = require('./routes/userRoutes.js');
+const { notFound, errorHandler } = require('./middleware/errorMiddleware.js');
 
 const app = express();
 dotenv.config();
+connectDB();
 
+app.use(express.json()); // this will allow server to accept json data
 
 app.get('/', (req, res) => {
     res.send("API is running great");
 });
 
-app.get('/api/chat', (req, res) => {
-    res.send(chats)
-});
+app.use('/api/user', userRoutes, () => {console.log("User routes are working")});
 
-app.get('/api/chat/:id', (req, res) => {
-    const singleChat = chats.find( c => c._id === req.params.id);
-    console.log(singleChat)
-    res.send(singleChat)
-});
-
+app.use(notFound);
+app.use(errorHandler)
 
 const PORT = process.env.port || 5000;
-app.listen(PORT), console.log(`Server is running on port ${PORT}`);
+app.listen(PORT), console.log(`Server is running on port ${PORT}`.yellow.bold);
