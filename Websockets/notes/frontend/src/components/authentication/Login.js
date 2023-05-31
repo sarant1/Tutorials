@@ -14,7 +14,7 @@ export const Login = () => {
     const history = useHistory();
     const toast = useToast();
 
-    const submitHandler = (e) => {
+    const submitHandler = async (e) => {
         setLoading(true);
         if (!email || !password) {
             toast({
@@ -34,7 +34,7 @@ export const Login = () => {
                     'Content-Type': 'application/json'
                 }
             }
-            const { data } = axios.post("/api/user/login", { 
+            const { data } = await axios.post("/api/user/login", { 
                 email, 
                 password }, config);
             toast({
@@ -116,7 +116,7 @@ export const Login = () => {
             width="100%"
             variant="solid"
             onClick={() => {
-                setEmail("guest@example.com")
+                setEmail("guest@gmail.com")
                 setPassword("123456")
             }}
         >
