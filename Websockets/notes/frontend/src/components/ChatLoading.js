@@ -5,13 +5,13 @@ const ChatLoading = () => {
   return (
     <div>
         <Stack>
-            <Skeleton height="20px" />
-            <Skeleton height="20px" />
-            <Skeleton height="20px" />
-            <Skeleton height="20px" />
-            <Skeleton height="20px" />
-            <Skeleton height="20px" />
-            <Skeleton height="20px" />
+            <Skeleton height="45px" />
+            <Skeleton height="45px" />
+            <Skeleton height="45px" />
+            <Skeleton height="45px" />
+            <Skeleton height="45px" />
+            <Skeleton height="45px" />
+            <Skeleton height="45px" />
         </Stack>
     </div>
   )

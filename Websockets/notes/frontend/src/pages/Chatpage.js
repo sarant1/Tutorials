@@ -19,10 +19,10 @@ const Chatpage = () => {
           p='10px'
           >
             {user && <MyChats />}
-            {user && <ChatBox />}
+            {/* {user && <ChatBox />} */}
         </Box>
     </div>
-  )
+  ) 
 }
 
 export default Chatpage

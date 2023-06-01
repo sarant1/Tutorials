@@ -1,6 +1,6 @@
 import React from 'react'
 import { useState } from "react"
-import { useToast, Box, DrawerContent, Button, Tooltip, Text, Menu, MenuButton, MenuList, MenuItem, Avatar, MenuDivider, Drawer, useDisclosure, DrawerOverlay, DrawerHeader, DrawerBody, Input, Toast} from '@chakra-ui/react'
+import { Spinner, useToast, Box, DrawerContent, Button, Tooltip, Text, Menu, MenuButton, MenuList, MenuItem, Avatar, MenuDivider, Drawer, useDisclosure, DrawerOverlay, DrawerHeader, DrawerBody, Input, Toast} from '@chakra-ui/react'
 import { BellIcon, ChevronDownIcon } from '@chakra-ui/icons'
 import { ChatState } from '../../Context/ChatProvider'
 import { useHistory } from 'react-router'
@@ -38,8 +38,11 @@ const SideDrawer = () => {
         },
       };
 
-      const { data } = await axios.post(`/api/chat'`, {userId}, config)
-
+      const { data } = await axios.post("/api/chat", {userId}, config)
+      console.log(data)
+      if (!chats.find((c) => c._id === data._id)) {
+        setChats((prev) => [data, ...prev]);
+      }
       setSelectedChat(false);
       setLoadingChat(false);
       onClose();
@@ -176,7 +179,8 @@ const SideDrawer = () => {
                   handleFunction={()=>accessChat(user._id)}
                 />)
               )
-            )}             
+            )}
+          { loadingChat && <Spinner ml="auto" display="flex"/> }     
         </DrawerBody>
         </DrawerContent>
       </Drawer>
