@@ -5,7 +5,6 @@ const asyncHandler = require('express-async-handler');
 const protect = asyncHandler(async (req, res, next) => {
     let token;
 
-    console.log(req)
     // if request has authorization
     if (
         req.headers.authorization &&
@@ -18,7 +17,7 @@ const protect = asyncHandler(async (req, res, next) => {
             const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
             req.user = await User.findById(decoded.id).select("-password");
-
+            
             next();
         } catch (error) {
             // if unauthorized
