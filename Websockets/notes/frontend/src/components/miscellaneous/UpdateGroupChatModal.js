@@ -22,7 +22,7 @@ import { FormControl } from '@chakra-ui/react'
 import axios from 'axios'
 import UserListItem from '../UserAvatar/UserListItem'
 
-const UpdateGroupChatModal = ( { fetchAgain, setFetchAgain }) => {
+const UpdateGroupChatModal = ( { fetchAgain, setFetchAgain, fetchMessages }) => {
 
     const [groupChatName, setGroupChatName] = useState('')
     const [search, setSearch] = useState('')
@@ -115,7 +115,7 @@ const UpdateGroupChatModal = ( { fetchAgain, setFetchAgain }) => {
             setSelectedChat(data);
             setLoading(false);
             setFetchAgain(!fetchAgain);
-
+            fetchMessages();
         } catch (error) {
            toast({
                 title: "Error",

@@ -9,6 +9,8 @@ import { Spinner } from '@chakra-ui/spinner'
 import { useState } from 'react'
 import axios from 'axios'
 import { useToast } from '@chakra-ui/toast'
+import './styles.css';
+import Scrollablechat from './Scrollablechat'
 
 const SingleChat = ({ fetchAgain, setFetchAgain }) => {
  
@@ -131,15 +133,15 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
                         ) : (
                             <>
                                 {selectedChat.chatName.toUpperCase()}
-                                { <UpdateGroupChatModal fetchAgain={fetchAgain} setFetchAgain={setFetchAgain} />}
+                                { <UpdateGroupChatModal fetchAgain={fetchAgain} setFetchAgain={setFetchAgain} fetchMessages={fetchMessages}/>}
                             </>
                         )
                     }
                 </Text>
                     <Box
                         display="flex"
-                        alignItems="end" 
-                        flexdir="column"
+                        justifyContent="flex-end"
+                        flexDir="column"
                         p={3}
                         bg="#E8E8E8"
                         w="100%"
@@ -156,9 +158,9 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
                                 margin="auto"
                                 />
                         ) : (
-                            <>
-                                {/* {messages} */}
-                            </>
+                            <div className="messages">
+                                <Scrollablechat messages={messages} />
+                            </div>
                         )}
 
                         <FormControl
