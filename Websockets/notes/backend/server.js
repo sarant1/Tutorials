@@ -6,6 +6,7 @@ const colors = require('colors');
 
 const chatRoutes = require('./routes/chatRoutes.js');
 const userRoutes = require('./routes/userRoutes.js');
+const messageRoutes = require('./routes/messageRoutes.js');
 
 const { notFound, errorHandler } = require('./middleware/errorMiddleware.js');
 
@@ -20,8 +21,8 @@ app.get('/', (req, res) => {
 });
 
 app.use('/api/user', userRoutes, () => {console.log("User routes are working")});
-
 app.use('/api/chat', chatRoutes)
+app.use('/api/message', messageRoutes)
 
 app.use(notFound);
 app.use(errorHandler)
