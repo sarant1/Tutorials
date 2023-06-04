@@ -29,7 +29,7 @@ var socket, selectedChatCompare;
 
 const SingleChat = ({ fetchAgain, setFetchAgain }) => {
  
-  const { user, selectedChat, setSelectedChat } = ChatState()
+  const { user, selectedChat, setSelectedChat, setNotification, notification} = ChatState()
   const [ loading, setLoading ] = useState(false)
   const [ messages, setMessages ] = useState([]);
   const [ newMessage, setNewMessage ] = useState("");
@@ -91,11 +91,16 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
   // eslint-disable-next-line
   }, [selectedChat])
 
+  console.log(notification, "---------")
+
   // this will run every time our app updates
   useEffect(() => {
     socket.on('message recieved', (newMessageRecieved) => {
         if (!selectedChatCompare || selectedChatCompare._id !== newMessageRecieved.chat._id) {
-            // give notification
+            if (!notification.includes(newMessageRecieved)) {
+                setNotification([...notification, newMessageRecieved]);
+                setFetchAgain(!fetchAgain)
+            }
         } else {
             setMessages([...messages, newMessageRecieved])
         }

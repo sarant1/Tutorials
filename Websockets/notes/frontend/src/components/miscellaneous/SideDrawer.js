@@ -1,6 +1,6 @@
 import React from 'react'
 import { useState } from "react"
-import { Spinner, useToast, Box, DrawerContent, Button, Tooltip, Text, Menu, MenuButton, MenuList, MenuItem, Avatar, MenuDivider, Drawer, useDisclosure, DrawerOverlay, DrawerHeader, DrawerBody, Input, Toast} from '@chakra-ui/react'
+import { Spinner, useToast, Box, DrawerContent, Button, Tooltip, Text, Menu, MenuButton, MenuList, MenuItem, Avatar, MenuDivider, Drawer, useDisclosure, DrawerOverlay, DrawerHeader, DrawerBody, Input} from '@chakra-ui/react'
 import { BellIcon, ChevronDownIcon } from '@chakra-ui/icons'
 import { ChatState } from '../../Context/ChatProvider'
 import { useHistory } from 'react-router'
@@ -8,6 +8,9 @@ import ProfileModal from './ProfileModal'
 import ChatLoading from '../ChatLoading'
 import axios from 'axios'
 import UserListItem from '../UserAvatar/UserListItem'
+import {getSender} from '../../config/ChatLogics'
+import NotificationBadge from 'react-notification-badge'
+import { Effect } from 'react-notification-badge'
 
 const SideDrawer = () => {
   const [search, setSearch] = useState('')
@@ -18,7 +21,7 @@ const SideDrawer = () => {
   const { isOpen, onOpen, onClose } = useDisclosure()
 
   const history = useHistory()
-  const { user, setSelectedChat, chats, setChats } = ChatState()
+  const { user, setSelectedChat, chats, setChats, notification, setNotification } = ChatState()
 
   const logoutHandler = () => {
     localStorage.removeItem('userInfo')
@@ -123,11 +126,25 @@ const SideDrawer = () => {
         <div>
           <Menu>
             <MenuButton p={1}>
+              <NotificationBadge count={notification.length} effect={Effect.SCALE}/>
               <BellIcon 
                 fontSize="2xl" 
                 margin={1}>
               </BellIcon>
             </MenuButton>
+            <MenuList pl={2}>
+              {!notification.length && "No new notifications"}
+              {notification.map(notif => (
+                <MenuItem key={notif._id} onClick={() => {
+                  setSelectedChat(notif.chat)
+                  setNotification(notification.filter(n => n !== notif))
+                }}>
+                  {notif.chat.isGroupChat 
+                  ? `New Message in ${notif.chat.chatName}`
+                  : `New Message from ${getSender(user, notif.chat.users)}`}
+                </MenuItem>
+              ))}
+            </MenuList>
           </Menu>
           <Menu>
             <MenuButton as={Button} rightIcon={<ChevronDownIcon/>}>
