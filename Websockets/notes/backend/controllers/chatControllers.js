@@ -12,9 +12,6 @@ const accessChat = asyncHandler(async (req, res) => {
         return res.sendStatus(400);
     }
 
-    console.log("userId: ", userId)
-    console.log("req.user._id: ", req.user._id)
-
     var isChat = await Chat.find({
         isGroupChat: false,
         $and: [
@@ -67,7 +64,6 @@ const fetchChats = asyncHandler(async (req, res) => {
                 path: "latestMessage.sender",
                 select: "name pic email"
             })
-            console.log(results)
             res.status(200).send(results)
         })
     } catch (errror) {
